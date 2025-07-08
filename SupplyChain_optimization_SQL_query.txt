@@ -1,0 +1,10 @@
+-- Average Cost and Discount by Mode of Shipment
+
+SELECT
+    Mode_of_Shipment,
+    COUNT(*) AS total_shipments,
+    ROUND(AVG(Cost_of_the_Product), 2) AS avg_cost,
+    ROUND(AVG(Discount_offered), 2) AS avg_discount
+FROM supply_chain_data
+GROUP BY Mode_of_Shipment
+ORDER BY avg_cost DESC;

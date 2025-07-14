@@ -8,3 +8,36 @@ SELECT
 FROM supply_chain_data
 GROUP BY Mode_of_Shipment
 ORDER BY avg_cost DESC;
+
+
+-- Product Importance vs On-Time Delivery and Ratings
+
+SELECT
+    Product_importance,
+    ROUND(AVG(Reached_on_Time_Y_N), 2) AS on_time_delivery_rate,
+    ROUND(AVG(Customer_rating), 2) AS avg_rating
+FROM supply_chain_data
+GROUP BY Product_importance;
+
+
+-- Customer Care Load by Satisfaction Level
+
+SELECT
+    Customer_rating,
+    ROUND(AVG(Customer_care_calls), 2) AS avg_support_calls,
+    COUNT(*) AS total_orders
+FROM supply_chain_data
+GROUP BY Customer_rating
+ORDER BY Customer_rating DESC;
+
+
+-- Delivery Performance by Warehouse Block
+
+SELECT
+    Warehouse_block,
+    COUNT(*) AS total_orders,
+    SUM(Reached_on_Time_Y_N = 1) AS on_time_orders,
+    ROUND(100 * AVG(Reached_on_Time_Y_N), 2) AS on_time_delivery_rate
+FROM supply_chain_data
+GROUP BY Warehouse_block
+ORDER BY on_time_delivery_rate DESC;
